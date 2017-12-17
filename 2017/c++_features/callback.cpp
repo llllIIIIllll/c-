@@ -6,20 +6,35 @@
 using namespace std;
 DWORD WINAPI TestFun(LPVOID lpParam);
 
+typedef void(* CallBackFunc)(int i, int j) Callfunc;
+
 class Thread {
 public:
 	Thread(int n, int m) :Num(n), Test(m) {};
 	int Test;
 	int Num;
 	int ThreadNew();
+	
+	void test(int a, Callfunc cal);
+
+	Callfunc cal;
+
 };
-DWORD WINAPI  TestFun(LPVOID lpParam)
+
+void Thread::test(int a, Callfunc cal)
+{
+	this->cal = cal;
+	this->ThreadNew();
+}
+
+DWORD WINAPI TestFun(LPVOID lpParam)
 {
 	while (true)
 	{
 		Thread * ptrData = (Thread *)lpParam;
 		//cout << ptrData->Num << "   " << ptrData->Test << endl;
 		ptrData->Num += 1;
+		cal(ptrData->Num, ptrData->Test);
 		Sleep(100);
 	}
 	return 0;
