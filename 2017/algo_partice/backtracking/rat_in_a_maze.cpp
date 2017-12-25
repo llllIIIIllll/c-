@@ -53,6 +53,15 @@ bool solveMazeUtil(int maze[N][N], int x, int y, int sol[N][N])
     if (isSafe(maze, x+1, y) == true)
     {
         sol[x][y] = 1;
+
+        if (solveMazeUtil(maze, x+1, y, sol) == true)
+            return true;
+
+        if (solveMazeUtil(maze, x, y+1, sol) == true)
+            return true;
+        
+        sol[x][y] = 0;
+        return false;
     }
 
     return false;
