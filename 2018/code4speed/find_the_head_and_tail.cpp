@@ -3,7 +3,9 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <list>
 #include <algorithm>
+#include <cstddef>
 
 using namespace std;
 using namespace cv;
@@ -25,6 +27,15 @@ struct
 		return a.x < b.x;
 	}
 } sortByX;
+
+struct
+{
+	template <typename T>
+	bool operator()(T a, T b)
+	{
+		return a.y > b.y;
+	}
+} sortByY;
 
 template<template <typename, typename> class Container, typename T>
 void Print_Container_Point(Container<T, std::allocator<T>> out)
@@ -54,17 +65,52 @@ void find_the_head_and_tail()
 		putText(img, os.str(), x, 1, 1, Scalar(0, 255, 0), 1, 8, false);
 		circle(img, x, 1, Scalar(0, 0, 255), 3, 8, 0);
 	});
-	//! Start algotirhm
+	//! get head points
 	// ------------------------------------------------------------------------
 	vector<Point> head;
 	head = pnt;
-	// get head points
 	head.erase(remove_if(head.begin(), head.end(), findHead), head.end());
 	// sort head points by x
 	sort(head.begin(), head.end(), sortByX);
 	// remove if head  points are too close
 	head.erase(unique(head.begin(), head.end(), [](Point a, Point b) { return abs(a.x - b.x) < 100; }), head.end());
+
+	cout << "Head: " << endl;
 	Print_Container_Point<vector, Point>(head);
+
+	//! get bound
+	// ------------------------------------------------------------------------
+	vector<pair<int, int>> bound;
+	int floor, ceil;
+	int frameWeight = 640;
+	for (vector<Point>::iterator it = head.begin(); it != head.end(); ++it)
+	{
+		floor = (it == head.begin())   ? 0           : head.at(it - head.begin() - 1).x / 2 + head.at(it - head.begin()).x / 2;
+		ceil  = (it == head.end() - 1) ? frameWeight : head.at(it - head.begin() + 1).x / 2 + head.at(it - head.begin()).x / 2;
+		bound.push_back(pair<int, int>(floor, ceil));
+	}
+	cout << "bound: " << endl;
+	for_each(bound.begin(), bound.end(), [](pair<int, int> a) {cout << " [ " << a.first << ", " << a.second << " ] "; });
+	cout << endl;
+
+	//! get end points
+	// ------------------------------------------------------------------------
+	vector<Point> end;
+	int i = 0;
+	for (vector<Point>::iterator itH = head.begin(); itH != head.end(); ++itH, ++i)
+	{
+		vector<Point> tmp;
+		for_each(pnt.begin(), pnt.end(), [&tmp, &bound, &i](Point a) 
+		{
+			if (a.x >= bound.at(i).first && a.x <= bound.at(i).second)
+				tmp.push_back(a);
+		}
+		);
+		sort(tmp.begin(), tmp.end(), sortByY);
+		end.push_back(tmp.at(0));
+	}
+	cout << "End: " << endl;
+	Print_Container_Point<vector, Point>(end);
 
 	//! Show result
 	// ------------------------------------------------------------------------
