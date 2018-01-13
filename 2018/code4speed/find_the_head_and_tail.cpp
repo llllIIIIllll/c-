@@ -45,19 +45,18 @@ void Print_Container_Point(Container<T, std::allocator<T>> out)
 	cout << endl;
 }
 
-void find_the_head_and_tail()
+void find_the_head_and_tail(vector<vector<Point>> &outPutPnt, vector<Point> &pnt)
 {
 	//! Init data
 	// ------------------------------------------------------------------------
-	vector<vector<Point>> outPutPnt;
-	vector<Point> pnt;
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < 20; ++i)
 		pnt.push_back(Point(rand() % 640, rand() % 480));
 
 	Mat img = Mat::zeros(Size(640, 480), CV_8UC3);
 	img.setTo(Scalar(100, 0, 0));
-
+	//! draw points
+	// ------------------------------------------------------------------------
 	for_each(pnt.begin(), pnt.end(), [&img](Point x)
 	{
 		ostringstream os;
@@ -93,9 +92,9 @@ void find_the_head_and_tail()
 	for_each(bound.begin(), bound.end(), [](pair<int, int> a) {cout << " [ " << a.first << ", " << a.second << " ] "; });
 	cout << endl;
 
-	//! get end points
+	//! get tail points
 	// ------------------------------------------------------------------------
-	vector<Point> end;
+	vector<Point> tail;
 	int i = 0;
 	for (vector<Point>::iterator itH = head.begin(); itH != head.end(); ++itH, ++i)
 	{
@@ -107,11 +106,23 @@ void find_the_head_and_tail()
 		}
 		);
 		sort(tmp.begin(), tmp.end(), sortByY);
-		end.push_back(tmp.at(0));
+		tail.push_back(tmp.at(0));
 	}
-	cout << "End: " << endl;
-	Print_Container_Point<vector, Point>(end);
+	cout << "Tail: " << endl;
+	Print_Container_Point<vector, Point>(tail);
 
+	//! return values
+	// ------------------------------------------------------------------------
+	outPutPnt.push_back(head);
+	outPutPnt.push_back(tail);
+	//! draw lines
+	// ------------------------------------------------------------------------
+	while (head.begin() != head.end())
+	{
+		line(img, head.back(), tail.back(), Scalar(238, 238, 0), 2, 8, 0);
+		head.pop_back();
+		tail.pop_back();
+	}
 	//! Show result
 	// ------------------------------------------------------------------------
 	imshow("test", img);
@@ -121,7 +132,9 @@ void find_the_head_and_tail()
 
 int main()
 {
-	find_the_head_and_tail();
+	vector<vector<Point>> outPutPnt;
+	vector<Point> pnt;
+	find_the_head_and_tail(outPutPnt, pnt);
 
 	return 0;
 }
