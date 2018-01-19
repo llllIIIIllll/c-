@@ -45,16 +45,16 @@ void Print_Container_Point(Container<T, std::allocator<T>> out)
 	cout << endl;
 }
 
-void find_the_head_and_tail(vector<vector<Point>> &outPutPnt, vector<Point> &pnt)
+void find_the_head_and_tail(vector<vector<Point>> &outPutPnt, vector<Point> &pnt, Mat &img)
 {
 	//! Init data
 	// ------------------------------------------------------------------------
-	srand((unsigned)time(NULL));
-	for (int i = 0; i < 20; ++i)
-		pnt.push_back(Point(rand() % 640, rand() % 480));
+	//srand((unsigned)time(NULL));
+	//for (int i = 0; i < 20; ++i)
+	//	pnt.push_back(Point(rand() % 640, rand() % 480));
 
-	Mat img = Mat::zeros(Size(640, 480), CV_8UC3);
-	img.setTo(Scalar(100, 0, 0));
+	//Mat img = Mat::zeros(Size(640, 480), CV_8UC3);
+	//img.setTo(Scalar(100, 0, 0));
 	//! draw points
 	// ------------------------------------------------------------------------
 	for_each(pnt.begin(), pnt.end(), [&img](Point x)
@@ -81,7 +81,7 @@ void find_the_head_and_tail(vector<vector<Point>> &outPutPnt, vector<Point> &pnt
 	// ------------------------------------------------------------------------
 	vector<pair<int, int>> bound;
 	int floor, ceil;
-	int frameWeight = 640;
+	int frameWeight = 1280;
 	for (vector<Point>::iterator it = head.begin(); it != head.end(); ++it)
 	{
 		floor = (it == head.begin())   ? 0           : head.at(it - head.begin() - 1).x / 2 + head.at(it - head.begin()).x / 2;
@@ -130,11 +130,12 @@ void find_the_head_and_tail(vector<vector<Point>> &outPutPnt, vector<Point> &pnt
 	system("pause");
 }
 
-int main()
-{
-	vector<vector<Point>> outPutPnt;
-	vector<Point> pnt;
-	find_the_head_and_tail(outPutPnt, pnt);
-
-	return 0;
-}
+//
+//int main()
+//{
+//	vector<vector<Point>> outPutPnt;
+//	vector<Point> pnt;
+//	find_the_head_and_tail(outPutPnt, pnt);
+//
+//	return 0;
+//}

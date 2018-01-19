@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="Conan-RootDirs">
+    <Conan-Poco-Root>C:\Users\infecon\.conan\data\Poco\1.8.0.1\pocoproject\stable\package\09378ed7f51185386e9f04b212b79fe2d12d005c</Conan-Poco-Root>
+    <Conan-OpenSSL-Root>C:\Users\infecon\.conan\data\OpenSSL\1.0.2l\conan\stable\package\606fdb601e335c2001bdf31d478826b644747077</Conan-OpenSSL-Root>
+    <Conan-zlib-Root>C:\Users\infecon\.conan\data\zlib\1.2.11\conan\stable\package\6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7</Conan-zlib-Root>
+  </PropertyGroup>
+  <PropertyGroup Label="ConanVariables">
+    <ConanBinaryDirectories></ConanBinaryDirectories>
+    <ConanResourceDirectories></ConanResourceDirectories>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LocalDebuggerEnvironment>PATH=%PATH%;</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:/Users/infecon/.conan/data/Poco/1.8.0.1/pocoproject/stable/package/09378ed7f51185386e9f04b212b79fe2d12d005c/include;C:/Users/infecon/.conan/data/OpenSSL/1.0.2l/conan/stable/package/606fdb601e335c2001bdf31d478826b644747077/include;C:/Users/infecon/.conan/data/zlib/1.2.11/conan/stable/package/6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>POCO_STATIC=ON;POCO_NO_AUTOMATIC_LIBS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:/Users/infecon/.conan/data/Poco/1.8.0.1/pocoproject/stable/package/09378ed7f51185386e9f04b212b79fe2d12d005c/lib;C:/Users/infecon/.conan/data/OpenSSL/1.0.2l/conan/stable/package/606fdb601e335c2001bdf31d478826b644747077/lib;C:/Users/infecon/.conan/data/zlib/1.2.11/conan/stable/package/6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>PocoUtilmd.lib;PocoMongoDBmd.lib;PocoNetmd.lib;PocoNetSSLWinmd.lib;PocoCryptomd.lib;PocoDatamd.lib;PocoDataSQLitemd.lib;PocoZipmd.lib;PocoXMLmd.lib;PocoJSONmd.lib;PocoFoundationmd.lib;Iphlpapi.lib;Crypt32.lib;ssleay32.lib;libeay32.lib;crypt32.lib;msi.lib;ws2_32.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Midl>
+      <AdditionalIncludeDirectories>C:/Users/infecon/.conan/data/Poco/1.8.0.1/pocoproject/stable/package/09378ed7f51185386e9f04b212b79fe2d12d005c/include;C:/Users/infecon/.conan/data/OpenSSL/1.0.2l/conan/stable/package/606fdb601e335c2001bdf31d478826b644747077/include;C:/Users/infecon/.conan/data/zlib/1.2.11/conan/stable/package/6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </Midl>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>C:/Users/infecon/.conan/data/Poco/1.8.0.1/pocoproject/stable/package/09378ed7f51185386e9f04b212b79fe2d12d005c/include;C:/Users/infecon/.conan/data/OpenSSL/1.0.2l/conan/stable/package/606fdb601e335c2001bdf31d478826b644747077/include;C:/Users/infecon/.conan/data/zlib/1.2.11/conan/stable/package/6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
