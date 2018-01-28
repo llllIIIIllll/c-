@@ -3,6 +3,9 @@
 #include <vector>
 #include <algorithm>
 
+#include <cctype>
+
+
 using namespace std;
 using namespace cv;
 
@@ -53,6 +56,12 @@ void Container_element_cast(Container<T, std::allocator<T>>& in, Container<U, st
 //}
 
 
+template <typename T, typename U>
+U cast_point(T t, U u)
+{
+	u = static_cast<T>(t);
+	return u;
+}
 
 //! print result
 // ----------------------------------------------------------------------------
@@ -76,7 +85,12 @@ void test_1()
 	vector<Point> out1, out2;
 	out1 = Container_element_cast<vector, Point2f, Point>(in);
 
-	Container_element_cast<vector, Point2f, Point>(in, out2);
+	//! function 1
+	//Container_element_cast<vector, Point2f, Point>(in, out2);
+
+	//! function 2
+	// TODO:
+	std::transform(in.begin(), in.end(), ++in.begin(),out2.begin(), cast_point<Point2f, Point>);
 
 
 	// show result
@@ -113,11 +127,10 @@ void test_n()
 
 }
 
-
 int main()
 {
 
-	test_n();
+	test_1();
 
 
 	system("pause");
