@@ -60,3 +60,89 @@ constexpr bool close_enough(T a, T b) {
 	else
 		return a == b;
 }
+
+classs Investment
+/// factory with variable arguments
+template <typename... Ts>
+std::unique_ptr<Investment>
+makeInvestMent(Ts&&.. params);
+
+class Investment
+{
+public:
+	virtual ~Investment() {}
+	virtual void calcRisk() = 0;
+}; 
+
+class Stock : public Investment
+{
+public:
+	explicit Stock(const std::string&){}
+	void calcRisk() override{}
+};
+
+class Bond : public Investment
+{
+public:
+	explicit Bond(const std::string&, const std::string&, int) {}
+	void calcRisk() override{}
+};
+
+class RealEstate : public Investment
+{
+public:
+    explicit RealEstate(const std::string&, double, int) { }
+    void calcRisk() override { }
+};
+
+template <typename... Ts>
+unique_ptr<Investment>
+makeInvestment(const string &name, Ts&&... params)
+{
+    unique_ptr<Investment> pInv;
+
+    if (name == "Stock")
+        pInv = constructArgs<Stock, Ts...>(forward<Ts>(params)...);
+    else if (name == "Bond")
+        pInv = constructArgs<Bond, Ts...>(forward<Ts>(params)...);
+    else if (name == "RealEstate")
+        pInv = constructArgs<RealEstate, Ts...>(forward<Ts>(params)...);
+
+    // call additional methods to init pInv...
+
+    return pInv;
+}
+
+//! C++ 17
+// before C++17
+template <typename Concrete, typename... Ts>
+enable_if_t<is_constructible<Concrete, Ts...>::value, unique_ptr<Concrete>>
+constructArgsOld(Ts&&... params)
+{
+    return std::make_unique<Concrete>(forward<Ts>(params)...);
+}
+
+template <typename Concrete, typename... Ts>
+enable_if_t<!is_constructible<Concrete, Ts...>::value, unique_ptr<Concrete> >
+constructArgsOld(...)
+{
+    return nullptr;
+}
+
+
+// using C++17
+// - if constexpr
+// - is_constructible_v
+// - fold expression to print arguments
+template <typename Concrete, typename... Ts>
+std::unique_ptr<Concrete> constructArgs(Ts&&... params)
+{ 
+	std::cout << __func__ << ": ";
+	((std::cout << params << ", "), ...);
+	std::cout << "\n";
+    
+	if constexpr (std::is_constructible_v<Concrete, Ts...>)
+		return std::make_unique<Concrete>(std::forward<Ts>(params)...);
+	else
+		return nullptr;
+}
