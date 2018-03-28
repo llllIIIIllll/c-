@@ -97,20 +97,5 @@ var foo = "method(" + argument1 + "," + arguemnt2 + ")";
 .blog { background-position: 0px 0px }
 .news { background-position: -180px 0px }
 =================================================================
+i have a couple of questions.
 i have some more questions.
-=================================================================
-Practical Vim, by Drew Neil
-Read Drew Neil's Practical Vim.
-=================================================================
-6 chairs, each costing $35, totals $
-=================================================================
-Typing in INSERT mode extends the line, BUT in Replace Mode
-the line lENGTH doesn't change.
-=================================================================
-Shopping list
-	Hardware Store
-		Buy nails
-		Buy new hammer
-	Beauty Parlor
-		Buy nail polish remover
-		Buy nails
