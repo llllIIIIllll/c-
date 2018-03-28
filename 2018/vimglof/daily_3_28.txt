@@ -1,0 +1,77 @@
+=================================================================
+ * item1
+ * item2
+ * item3
+ * item4
+ * item5
+
+5J:s/ . /,/g<CR>xxZZ
+
+item1,item2,item3,item4,item5
+=================================================================
+The quick brown fox jumps over the lazy dog.
+
+2wd2wflPdt.FjhPZZ
+
+The quick lazy dog jumps over the brown fox.
+=================================================================
+10 PRINT "The actual"
+15 PRINT "code doesn't"
+16 PRINT "really matter."
+20 PRINT "Just take"
+25 PRINT "care of"
+30 PRINT "the numbers."
+
+jr2jr3jr4jr5jr6l<C-V>4kr0ZZ
+
+10 PRINT "The actual"
+20 PRINT "code doesn't"
+30 PRINT "really matter"
+40 PRINT "Just take"
+50 PRINT "care of"
+60 PRINT "the numbers."
+=================================================================
+aaaaaaa
+aaaaaaa
+aaaaaaa
+aaaaaaa
+aaaaaaa
+
+qq4RAa<Esc>x02jq@q@qZZ
+
+AaAaAaA
+aaaaaaa
+AaAaAaA
+aaaaaaa
+AaAaAaA
+=================================================================
+First:
+	Junk text.
+Second:
+	Junk text.
+Third:
+	Junk text.
+Last:
+	Copy these lines,
+	and replace the text
+	in each heading above.
+
+jddj.j.jy3<CR>kkpkkpkkpZZ
+
+
+First:
+	Copy these lines,
+	and replace the text
+	in each heading above.
+Second:
+	Copy these lines,
+	and replace the text
+	in each heading above.
+Third:
+	Copy these lines,
+	and replace the text
+	in each heading above.
+Last:
+	Copy these lines,;;;;
+	and replace the text;;;
+	in each heading above.;;;;;;
