@@ -1,0 +1,32 @@
+"=============================================================================
+" vimrc --- Entry file for vim
+" Copyright (c) 2016-2017 Shidong Wang & Contributors
+" Author: Shidong Wang < wsdjeg at 163.com >
+" URL: https://spacevim.org
+" License: GPLv3
+"=============================================================================
+
+" Note: Skip initialization for vim-tiny or vim-small.
+if 1
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/main.vim'
+endif
+" vim:set et sw=2
+"
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+imap jj <Esc>
+set clipboard=unnamedplus
+
+nnoremap <leader>tc :ElementComment<cr>
+nnoremap <leader>tu :ElementUncomment<cr>
+nnoremap <leader>tC :TagComment<cr>
+nnoremap <leader>tU :TagUncomment<cr>
+
+nnoremap <leader>m a
+nnoremap <leader>m m
+nnoremap <leader>m n
+nnoremap <leader>m p
+nnoremap <leader>m i
+
