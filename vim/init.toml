@@ -11,6 +11,11 @@
 [[custom_plugins]]
     name = "mvolkmann/vim-tag-comment"
     name = "flazz/vim-colorschemes"
+    name = "airblade/vim-gitgutter"
+    name = "octol/vim-cpp-enhanced-highlight"
+    name = "NLKNguyen/papercolor-theme"
+    name = "octol/vim-cpp-enhanced-highlight"
+    name = "neomake/neomake"
 
 [options]
     # set spacevim theme. by default colorscheme layer is not loaded,
@@ -19,7 +24,7 @@
     # true colors
     colorscheme = "molokai"
     colorscheme_bg = "dark"
-    enable_guicolors = false
+    enable_guicolors = true
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
     # install nerd fonts
@@ -27,21 +32,28 @@
     statusline_inactive_separator = "arrow"
     buffer_index_type = 4
     enable_tabline_filetype_icon = true
-    enable_statusline_display_mode = false
+    enable_statusline_display_mode = true
+    enable_neomake = true
+    enable_ale = true
 
 # Enable autocomplete layer
 [[layers]]
 name = 'autocomplete'
 auto-completion-return-key-behavior = "complete"
-auto-completion-tab-key-behavior = "smart"
+auto-completion-tab-key-behavior = "cycle"
+
 
 [[layers]]
 name = 'shell'
 default_position = 'top'
 default_height = 30
+enable = false
 
 [[layers]]
-name = "fzf"
+    name = "fzf"
+
+[[layers]]
+    name = "ycmd"
 
 [[layers]]
     name = "colorscheme"
@@ -49,14 +61,19 @@ name = "fzf"
 [[layers]]
     name = "tools"
 
-[[layers]]
-  name = "lang#c"
-  clang_executable = "/usr/bin/clang"
-  [layer.clang_std]
-    c = "c11"
-    cpp = "c++1z"
-    objc = "c11"
-    objcpp = "c++1z"
+#[[layers]]
+#  name = "lang#c"
+#  clang_executable = "/usr/bin/clang++-6.0"
+#  [layer.clang_std]
+#    c = "c11"
+#    cpp = "c++1z"
+#    objc = "c1z"
+#    objcpp = "c++11"
 
 [[layers]]
   name = "git"
+
+[[layers]]
+name = "checkers"
+show_cursor_error = false
+neomake_cpp_enabled_makers = "gcc-7"
