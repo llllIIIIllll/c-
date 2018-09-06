@@ -30,6 +30,10 @@ nnoremap <leader>m n
 nnoremap <leader>m p
 nnoremap <leader>m i
 
+" macro
+let @j = '0f<v2wx'
+let @w = '02@jj'
+
 " neomake check
 let g:neomake_cpp_enabled_markers=['g++']
 let g:neomake_cpp_clang_args = ['-Wall', '-Wextra', '-I ./', '-std=gnu++2a']
