@@ -9,7 +9,6 @@
 # All SpaceVim option below [option] section
 #
 [[custom_plugins]]
-    name = "mvolkmann/vim-tag-comment"
     name = "flazz/vim-colorschemes"
     name = "airblade/vim-gitgutter"
     name = "octol/vim-cpp-enhanced-highlight"
@@ -31,7 +30,7 @@
     statusline_separator = "arrow"
     statusline_inactive_separator = "arrow"
     buffer_index_type = 4
-    enable_tabline_filetype_icon = true
+    enable_tabline_filetype_icon = false
     enable_statusline_display_mode = true
     enable_neomake = true
     enable_ale = true
@@ -60,15 +59,6 @@ enable = false
 
 [[layers]]
     name = "tools"
-
-#[[layers]]
-#  name = "lang#c"
-#  clang_executable = "/usr/bin/clang++-6.0"
-#  [layer.clang_std]
-#    c = "c11"
-#    cpp = "c++1z"
-#    objc = "c1z"
-#    objcpp = "c++11"
 
 [[layers]]
   name = "git"

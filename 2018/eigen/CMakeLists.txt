@@ -9,3 +9,5 @@ find_package(Eigen3 CONFIG REQUIRED
 			 )
 
 add_executable(hello_world src/hello_world.cpp)
+
+add_executable(linear src/linear.cpp)

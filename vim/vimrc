@@ -53,20 +53,20 @@ let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 
 " color
-"let g:airline_theme='papercolor'
-"let g:lightline = { 'colorscheme': 'PaperColor' }
-"
-"let g:PaperColor_Theme_Options = {
-"  \   'language': {
-"  \     'python': {
-"  \       'highlight_builtins' : 1
-"  \     },
-"  \     'cpp': {
-"  \       'highlight_standard_library': 1
-"  \     },
-"  \     'c': {
-"  \       'highlight_builtins' : 1
-"  \     }
-"  \   }
-"  \ }
-"
+let g:airline_theme='papercolor'
+let g:lightline = { 'colorscheme': 'PaperColor' }
+
+let g:PaperColor_Theme_Options = {
+  \   'language': {
+  \     'python': {
+  \       'highlight_builtins' : 1
+  \     },
+  \     'cpp': {
+  \       'highlight_standard_library': 1
+  \     },
+  \     'c': {
+  \       'highlight_builtins' : 1
+  \     }
+  \   }
+  \ }
+
