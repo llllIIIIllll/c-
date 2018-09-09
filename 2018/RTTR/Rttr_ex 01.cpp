@@ -8,7 +8,7 @@ using namespace rttr;
 RTTR_REGISTRATION
 {
 	using namespace rttr;
-registration::method("f", &f);
+    registration::method("f", &f);
 }
 
 int main()

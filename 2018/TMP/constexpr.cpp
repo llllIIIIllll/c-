@@ -1,11 +1,13 @@
+#include <iostream>
 #include <string>
+#include <memory>
 
 // can't use to_stirng(string)
 
 template <typename T>
 std::string str(T t)
 {
-	if (std::is_same_v<T, stfd::string>) // or is _convertible...
+	if (std::is_same_v<T, std::string>) // or is _convertible...
 		return t;
 	else
 		return std::to_string(t);
@@ -17,6 +19,7 @@ std::enable_if_t<std::is_same_v<T, std::string>, std::string> strOld(T t)
 {
 	return t;
 }
+
 
 template <typename T>
 std::enable_if_t<!std::is_same_v<T, std::string>, std::string> strOld(T t)
@@ -55,17 +58,49 @@ constexpr auto precision_threshold = T(0.000001);
 
 template <class T>
 constexpr bool close_enough(T a, T b) {
-	if constexpr (is_floating_point_v<T>) // << !!
+	if constexpr (std::is_floating_point_v<T>) // << !!
 		return absolute(a - b) < precision_threshold<T>;
 	else
 		return a == b;
 }
 
-classs Investment
+//! C++ 17
+// before C++17
+template <typename Concrete, typename... Ts>
+std::enable_if_t<std::is_constructible<Concrete, Ts...>::value, std::unique_ptr<Concrete>>
+constructArgsOld(Ts&&... params)
+{
+    return std::make_unique<Concrete>(std::forward<Ts>(params)...);
+}
+
+template <typename Concrete, typename... Ts>
+std::enable_if_t<!std::is_constructible<Concrete, Ts...>::value, std::unique_ptr<Concrete> >
+constructArgsOld(...)
+{
+    return nullptr;
+}
+
+// using C++17
+// - if constexpr
+// - is_constructible_v
+// - fold expression to print arguments
+template <typename Concrete, typename... Ts>
+std::unique_ptr<Concrete> constructArgs(Ts&&... params)
+{ 
+	std::cout << __func__ << ": ";
+	((std::cout << params << ", "), ...);
+	std::cout << "\n";
+    
+	if constexpr (std::is_constructible_v<Concrete, Ts...>)
+		return std::make_unique<Concrete>(std::forward<Ts>(params)...);
+	else
+		return nullptr;
+}
+class Investment;
 /// factory with variable arguments
 template <typename... Ts>
 std::unique_ptr<Investment>
-makeInvestMent(Ts&&.. params);
+makeInvestMent(Ts&&... params);
 
 class Investment
 {
@@ -96,53 +131,23 @@ public:
 };
 
 template <typename... Ts>
-unique_ptr<Investment>
-makeInvestment(const string &name, Ts&&... params)
+std::unique_ptr<Investment>
+makeInvestment(const std::string &name, Ts&&... params)
 {
-    unique_ptr<Investment> pInv;
+    std::unique_ptr<Investment> pInv;
 
     if (name == "Stock")
-        pInv = constructArgs<Stock, Ts...>(forward<Ts>(params)...);
+        pInv = constructArgs<Stock, Ts...>(std::forward<Ts>(params)...);
     else if (name == "Bond")
-        pInv = constructArgs<Bond, Ts...>(forward<Ts>(params)...);
+        pInv = constructArgs<Bond, Ts...>(std::forward<Ts>(params)...);
     else if (name == "RealEstate")
-        pInv = constructArgs<RealEstate, Ts...>(forward<Ts>(params)...);
+        pInv = constructArgs<RealEstate, Ts...>(std::forward<Ts>(params)...);
 
     // call additional methods to init pInv...
 
     return pInv;
 }
 
-//! C++ 17
-// before C++17
-template <typename Concrete, typename... Ts>
-enable_if_t<is_constructible<Concrete, Ts...>::value, unique_ptr<Concrete>>
-constructArgsOld(Ts&&... params)
+int main()
 {
-    return std::make_unique<Concrete>(forward<Ts>(params)...);
-}
-
-template <typename Concrete, typename... Ts>
-enable_if_t<!is_constructible<Concrete, Ts...>::value, unique_ptr<Concrete> >
-constructArgsOld(...)
-{
-    return nullptr;
-}
-
-
-// using C++17
-// - if constexpr
-// - is_constructible_v
-// - fold expression to print arguments
-template <typename Concrete, typename... Ts>
-std::unique_ptr<Concrete> constructArgs(Ts&&... params)
-{ 
-	std::cout << __func__ << ": ";
-	((std::cout << params << ", "), ...);
-	std::cout << "\n";
-    
-	if constexpr (std::is_constructible_v<Concrete, Ts...>)
-		return std::make_unique<Concrete>(std::forward<Ts>(params)...);
-	else
-		return nullptr;
 }

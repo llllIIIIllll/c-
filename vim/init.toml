@@ -11,7 +11,6 @@
 [[custom_plugins]]
     name = "flazz/vim-colorschemes"
     name = "airblade/vim-gitgutter"
-    name = "octol/vim-cpp-enhanced-highlight"
     name = "NLKNguyen/papercolor-theme"
     name = "octol/vim-cpp-enhanced-highlight"
     name = "neomake/neomake"
