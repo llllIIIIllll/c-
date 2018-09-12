@@ -1,0 +1,23 @@
+"Mon'
+"Tue'
+"Wed'
+"Thu'
+"Fri'
+"Sat'
+"Sun'
+
+Mon
+Tue
+Wed Thu Fri
+Sat
+Sun
+
+const int test = 123;
+const float new = 123.3;
+==========================
+V2:Tabularize/\s\+\l0
+==========================
+const int   test = 123;
+const float new  = 123.3;
+
+
