@@ -86,29 +86,26 @@ get_python_inc(),
 '-isystem',
 '/home/wbl/src/vcpkg/installed/x64-linux/include',
 '-isystem',
-'/usr/include/clang/6.0.0/include',
-'-isystem',
 '/usr/include/boost',
 '-isystem',
-'/usr/include/gazebo-7',
+'/usr/include/gazebo-8',
 '-isystem',
 '/opt/ros/kinetic/include',
 '-isystem',
 '/home/wbl/src/experimental/te/include',
 '-isystem',
-'/usr/include',
+'/home/wbl/src/fatal',
 '-isystem',
-'/usr/include/ignition/msgs1',
+'/home/wbl/src/cpp-taskflow',
 '-isystem',
-'/usr/include/ignition/transport4',
-
+'/usr/include/c++/7',
 ]
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
 # which is required for compiling the standard library, and to 'c++11' for older
 # versions.
 if platform.system() != 'Windows':
-  flags.append( '-std=c++17' )
+  flags.append( '-std=c++1z' )
 
 
 # Set this to the absolute path to the folder (NOT the file!) containing the

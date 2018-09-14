@@ -84,6 +84,10 @@ nnoremap <leader>m n
 nnoremap <leader>m p
 nnoremap <leader>m i
 
+" new tab
+nnoremap <leader>e :tabe<cr>
+nnoremap <leader>w :w<cr>:bw<cr>
+
 " macro
 let @w = '0f<xwv$r '
 let @j = '0f<v2wx'
@@ -104,3 +108,7 @@ let g:cpp_concepts_highlight = 1
 "let g:cpp_concepts_highlight = 1
 "let g:cpp_no_function_highlight = 1
 "
+
+"let g:spacevim_search_tools='rg'
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
