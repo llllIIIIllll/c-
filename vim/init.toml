@@ -16,7 +16,7 @@
     # if you want to use more colorscheme, please load the colorscheme
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
-    colorscheme = "molokai"
+    colorscheme = "gruvbox"
     colorscheme_bg = "dark"
     enable_guicolors = true
     # Disable guicolors in basic mode, many terminal do not support 24bit
