@@ -1,11 +1,11 @@
 struct NeverTrace {
-  template <typename... Args>
+   <typename... Args>
   void operator()(const char* format,
     Args&&... args) {}
 };
 
 struct AlwaysTrace {
-  template <typename... Args>
+   <typename... Args>
   void operator()(const char* format,
     Args&&... args) {
       fmt::printf(format,

@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-    vector<string> my_vec;
+    vector<string> my_vec; 
     my_vec.push_back("foo");
     my_vec.emplace_back("foo");
 
