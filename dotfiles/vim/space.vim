@@ -7,6 +7,13 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
+" circular windows navigation
+nnoremap <Tab>   <c-W>w
+nnoremap <S-Tab> <c-W>W
+" jump list
+nnoremap <C-j> <C-i>
+nnoremap <C-k> <C-o>
+
 nnoremap <silent><Space>bp :bp<CR>
 nnoremap <silent><Space>bn :bn<CR>
 
