@@ -1,12 +1,4 @@
 
-" key map
-imap jj <Esc>
-map <F2> :NERDTreeToggle<CR>
-
-" incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 
 " default setting
 set ts=4
