@@ -14,8 +14,14 @@ nnoremap <S-Tab> <c-W>W
 nnoremap <C-j> <C-i>
 nnoremap <C-k> <C-o>
 
+nnoremap <silent><Space>q :qa!<CR>
+nnoremap <silent><Space>w :wa!<CR>
+
 nnoremap <silent><Space>bp :bp<CR>
 nnoremap <silent><Space>bn :bn<CR>
+
+nnoremap <silent><Space>v :vs<CR>
+nnoremap <silent><Space>s :sv<CR>
 
 nnoremap <silent><Space>te :tabe<CR>
 
