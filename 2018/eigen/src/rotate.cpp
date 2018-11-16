@@ -8,15 +8,15 @@ int main(int argc, char **argv)
 {
     using ::std::cout;
     using ::std::endl;
-    double yaw = 0, pitching = 0, droll = PI;
+    double yaw = PI/6, pitching = PI/6, droll = PI/6 ;
     
     
       //EulerAngles to RotationMatrix
-    ::Eigen::Vector3d ea0(yaw,pitching,droll);
+    ::Eigen::Vector3d ea0(droll,pitching,yaw);
     ::Eigen::Matrix3d R;
-    R = ::Eigen::AngleAxisd(ea0[0], ::Eigen::Vector3d::UnitZ())
+    R = ::Eigen::AngleAxisd(ea0[0], ::Eigen::Vector3d::UnitX())
         * ::Eigen::AngleAxisd(ea0[1], ::Eigen::Vector3d::UnitY())
-        * ::Eigen::AngleAxisd(ea0[2], ::Eigen::Vector3d::UnitX());
+        * ::Eigen::AngleAxisd(ea0[2], ::Eigen::Vector3d::UnitZ());
 
     cout << R << endl << endl;
     cout << "==================================================" << endl;
