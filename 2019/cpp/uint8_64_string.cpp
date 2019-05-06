@@ -127,7 +127,7 @@ void Param_Write_ALL_TO_FM(std::vector<pair<string, uint64_t>> param_list)
         std::cout << b << std::endl; 
     }
     {
-        double c = 222.345;
+        double c = 1.1;
         double d;
         uint8_t out_2[8];
         double_to_uint8_t(c, out_2);
