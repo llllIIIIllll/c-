@@ -50,6 +50,9 @@ int main()
     }
     
     sin_size=sizeof(struct sockaddr_in);
+    static uint8_t last_seq = 0;
+    static int total_count = 0;
+    static int total_error_count = 0;
     while (1) {
         num = recvfrom(sockfd,recvmsg,MAXDATASIZE,0,(struct sockaddr *)&client,&sin_size);
         if (num < 0){
@@ -58,18 +61,28 @@ int main()
         }
         
         recvmsg[num] = '\0';
+        uint8_t num_seq = (int)recvmsg[0];
+        total_count = num_seq;
+        if (num_seq-last_seq)
+            total_error_count++;
         
-        printf("You got a message (%s) from %s\n",recvmsg,inet_ntoa(client.sin_addr) ); /* prints client's IP */
+        last_seq = num_seq;
         if(strcmp(recvmsg,condition)==0) break;
         
-        int i=0;
-        for(i = 0 ; i < num ; i ++)
+        if (last_seq == 255)
         {
-            sendmsg[i] = recvmsg[num-1-i];
-        }
-        sendmsg[num]='\0';
+printf("(%3d) -- (%3d) -- result (%d / %d) from %s\n", last_seq, num_seq, total_error_count,total_count,inet_ntoa(client.sin_addr) ); /* prints client's IP */
+            total_count = 0;
+            total_error_count = 0;
+        }        
+        // int i=0;
+        // for(i = 0 ; i < num ; i ++)
+        // {
+        //     sendmsg[i] = recvmsg[num-1-i];
+        // }
+        // sendmsg[num]='\0';
         
-        sendto(sockfd,sendmsg,strlen(sendmsg),0,(struct sockaddr *)&client,sin_size);
+        // sendto(sockfd,sendmsg,strlen(sendmsg),0,(struct sockaddr *)&client,sin_size);
         
     }
     

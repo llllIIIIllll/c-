@@ -1,0 +1,11 @@
+loop.bash
+nohup.out
+string.bash
+loop.bash
+nohup.out
+string.bash
+cleanup.bash
+loop.bash
+nohup.out
+string.bash
+top: failed tty get
