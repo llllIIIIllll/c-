@@ -5,4 +5,12 @@
             "after": ["<Esc>"]
         }
     ],
+    "files.associations": {
+        "vector": "cpp",
+        "*.ipp": "cpp",
+        "ratio": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp",
+        "functional": "cpp"
+    },
 }
