@@ -1,0 +1,5 @@
+
+
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8888 -j DNAT --to-destination 10.159.10.100:8888
+sudo iptables -t nat -A POSTROUTING -p tcp -d 10.159.10.100 --dport 8888 -j SNAT --to-source 10.159.10.1
