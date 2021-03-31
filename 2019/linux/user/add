@@ -1,0 +1,6 @@
+
+useradd user -m -s /bin/bash
+sudo useradd user -m -s /bin/bash
+sudo usermod -a -G systemd-journal user 
+sudo usermod -a -G docker user 
+sudo passwd user 
