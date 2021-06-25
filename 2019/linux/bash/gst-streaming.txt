@@ -40,7 +40,15 @@ gst-launch-1.0 -v v4l2src device=/dev/video0 io-mode=2 ! 'video/x-raw,format=YUY
 
 gst-launch-1.0 -v v4l2src device=/dev/video0 io-mode=2 ! 'video/x-raw,format=YUY2,width=1920,height=1080,framerate=30/1' ! nvvidconv ! 'video/x-raw(memory:NVMM), width=(int)640, height=(int)480, format=(string)I420' ! nvv4l2h264enc  bitrate=800000  ! h264parse ! flvmux ! rtmpsink location='rtmp://192.168.66.140:8555/camera/qtruck0/video0'
 
-gst-launch-1.0 -v --gst-plugin-path=/opt/nvidia/qomolo/gst-plugins  nvv4l2camerasrc device=/dev/video0  ! nvvidconv ! 'video/x-raw(memory:NVMM), width=(int)640, height=(int)480, format=(string)I420' ! nvv4l2h264enc  bitrate=800000  ! h264parse ! flvmux ! rtmpsink location='rtmp://192.168.66.140:8555/camera/qtruck0/video1'
+gst-launch-1.0 -v --gst-plugin-path=/opt/nvidia/qomolo/gst-plugins  nvv4l2camerasrc device=/dev/video1  ! nvvidconv ! 'video/x-raw(memory:NVMM), width=(int)640, height=(int)480, format=(string)I420' ! nvv4l2h264enc  bitrate=800000  ! h264parse ! flvmux ! rtmpsink location='rtmp://192.168.66.140:8555/camera/qtruck0/video1'
 
 
-gst-launch-1.0 rtspsrc location="rtsp://192.168.66.140:8554/camera/qtruck0/video0" latency=0 drop-on-latency=1 ! rtph264depay ! h264parse ! decodebin ! xvimagesink 
+gst-launch-1.0 rtspsrc location="rtsp://192.168.66.140:8554/camera/qtruck0/video1" latency=0 drop-on-latency=1 ! rtph264depay ! h264parse ! decodebin ! xvimagesink 
+
+
+gst-launch-1.0 rtspsrc location=rtsp://admin:passwd@192.168.2.71/Streaming/Channels/1 latency=300 ! rtph264depay ! h264parse ! nvv4l2decoder drop-frame-interval=1 ! nvvideoconvert ! video/x-raw,width=1080,height=720,formate=I420 ! queue !  nveglglessink window-x=0 window-y=0 window-width=1080 window-height=720
+
+gst-launch-1.0 -e nvv4l2camerasrc device=/dev/video4 ! nvvidconv ! 'video/x-raw(memory:NVMM), width=1920, height=1080, format=I420, framerate=30/1' ! nvv4l2h264enc bitrate=10000000  ! filesink location=/debug/file.mkv
+
+gst-launch-1.0 \
+v4l2src device=/dev/video0  ! 'video/x-raw,width=640,height=480,framerate=30/1' ! autovideoconvert  \
