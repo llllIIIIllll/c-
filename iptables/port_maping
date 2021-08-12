@@ -1,6 +1,6 @@
 
 
 
-sudo iptables -t nat -A PREROUTING -p tcp --dport 4010 -j DNAT --to-destination 10.159.101.130
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 192.168.8.1
 
-sudo iptables -t nat -A POSTROUTING -p tcp -d 10.159.101.130 --dport 4010 -j SNAT --to-source 10.159.101.1
+sudo iptables -t nat -A POSTROUTING -p tcp -d 192.168.8.1 --dport 80 -j SNAT --to-source 192.168.8.143
