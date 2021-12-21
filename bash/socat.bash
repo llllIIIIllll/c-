@@ -13,3 +13,12 @@ sudo socat -v  file:/dev/ttyS1,echo=0,b115200,raw,crnl,icanon=1 TCP:192.168.66.2
 sudo socat -u -v -v TCP:192.168.66.203:4010,fork UDP:4444
 
 sudo socat -v -v UDP-RECVFROM:4001,fork,reuseaddr UDP:192.168.66.1:4001,reuseaddr
+
+sudo socat -u -v TCP:192.168.10.50:2222,fork  OPEN:data.txt,creat,append
+
+
+socat - UDP-DATAGRAM:10.0.0.255:11111,broadcast,sp=11111
+
+socat - UDP-DATAGRAM:224.255.0.1:11111,bind=:11111,ip-add-membership=224.255.0.1:eth0
+
+socat - UDP-DATAGRAM:10.0.0.5:11111,sp=11111
