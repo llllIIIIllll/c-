@@ -48,7 +48,7 @@ gst-launch-1.0 rtspsrc location="rtsp://192.168.66.140:8554/camera/qtruck0/video
 
 gst-launch-1.0 rtspsrc location=rtsp://admin:passwd@192.168.2.71/Streaming/Channels/1 latency=300 ! rtph264depay ! h264parse ! nvv4l2decoder drop-frame-interval=1 ! nvvideoconvert ! video/x-raw,width=1080,height=720,formate=I420 ! queue !  nveglglessink window-x=0 window-y=0 window-width=1080 window-height=720
 
-gst-launch-1.0 -e nvv4l2camerasrc device=/dev/video4 ! nvvidconv ! 'video/x-raw(memory:NVMM), width=1920, height=1080, format=I420, framerate=30/1' ! nvv4l2h264enc bitrate=10000000  ! filesink location=/debug/file.mkv
+gst-launch-1.0 -e nvv4l2camerasrc device=/dev/video0 ! nvvidconv ! 'video/x-raw(memory:NVMM), width=1920, height=1080, format=I420, framerate=30/1' ! nvv4l2h264enc bitrate=10000000  ! filesink location=/debug/file.mkv
 
 gst-launch-1.0 \
 v4l2src device=/dev/video0  ! 'video/x-raw,width=640,height=480,framerate=30/1' ! autovideoconvert  \
