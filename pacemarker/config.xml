@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<cib crm_feature_set="3.2.1" validate-with="pacemaker-3.2" epoch="421" num_updates="4" admin_epoch="0" cib-last-written="Thu Nov 24 07:09:41 2022" update-origin="WL-qml-srv-01" update-client="cibadmin" update-user="root" have-quorum="1" dc-uuid="11">
+  <configuration>
+    <crm_config>
+      <cluster_property_set id="cib-bootstrap-options">
+        <nvpair name="have-watchdog" value="false" id="cib-bootstrap-options-have-watchdog"/>
+        <nvpair name="dc-version" value="2.0.3-4b1f869f0f" id="cib-bootstrap-options-dc-version"/>
+        <nvpair name="cluster-infrastructure" value="corosync" id="cib-bootstrap-options-cluster-infrastructure"/>
+        <nvpair name="cluster-name" value="qml-gateway" id="cib-bootstrap-options-cluster-name"/>
+        <nvpair name="no-quorum-policy" value="stop" id="cib-bootstrap-options-no-quorum-policy"/>
+        <nvpair name="stonith-enabled" value="false" id="cib-bootstrap-options-stonith-enabled"/>
+        <nvpair id="cib-bootstrap-options-last-lrm-refresh" name="last-lrm-refresh" value="1668417574"/>
+      </cluster_property_set>
+    </crm_config>
+    <nodes>
+      <node id="11" uname="WL-qml-srv-01">
+        <instance_attributes id="nodes-11"/>
+      </node>
+      <node id="12" uname="WL-qml-srv-02"/>
+      <node id="13" uname="WL-qml-srv-03"/>
+    </nodes>
+    <resources>
+      <group id="g_def">
+        <meta_attributes id="g_def-meta_attributes">
+          <nvpair name="target-role" value="Started" id="g_def-meta_attributes-target-role"/>
+        </meta_attributes>
+        <primitive id="vip_def" class="ocf" provider="heartbeat" type="IPaddr2">
+          <instance_attributes id="vip_def-instance_attributes">
+            <nvpair name="ip" value="10.159.101.2" id="vip_def-instance_attributes-ip"/>
+            <nvpair name="cidr_netmask" value="24" id="vip_def-instance_attributes-cidr_netmask"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" interval="10s" id="vip_def-monitor-10s"/>
+          </operations>
+        </primitive>
+        <primitive id="nexus" class="ocf" provider="heartbeat" type="anything">
+          <instance_attributes id="nexus-instance_attributes">
+            <nvpair name="param" id="nexus-instance_attributes-param"/>
+            <nvpair name="binfile" value="docker-compose -f /data/local_ws/nexus/docker-compose.yml up" id="nexus-instance_attributes-binfile"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" interval="10s" id="nexus-monitor-10s"/>
+          </operations>
+          <meta_attributes id="nexus-meta_attributes">
+            <nvpair name="target-role" value="Started" id="nexus-meta_attributes-target-role"/>
+          </meta_attributes>
+        </primitive>
+      </group>
+      <group id="g_wg">
+        <meta_attributes id="g_wg-meta_attributes">
+          <nvpair name="target-role" value="Started" id="g_wg-meta_attributes-target-role"/>
+        </meta_attributes>
+        <primitive id="vip_wg" class="ocf" provider="heartbeat" type="IPaddr2">
+          <instance_attributes id="vip_wg-instance_attributes">
+            <nvpair name="ip" value="10.159.101.3" id="vip_wg-instance_attributes-ip"/>
+            <nvpair name="cidr_netmask" value="24" id="vip_wg-instance_attributes-cidr_netmask"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" interval="10s" id="vip_wg-monitor-10s"/>
+          </operations>
+        </primitive>
+        <primitive id="wg" class="ocf" provider="heartbeat" type="anything">
+          <instance_attributes id="wg-instance_attributes">
+            <nvpair name="param" id="wg-instance_attributes-param"/>
+            <nvpair name="binfile" value="docker-compose -f /data/local_ws/wg_server/docker-compose.yml up" id="wg-instance_attributes-binfile"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" interval="10s" id="wg-monitor-10s"/>
+          </operations>
+          <meta_attributes id="wg-meta_attributes">
+            <nvpair name="target-role" value="Started" id="wg-meta_attributes-target-role"/>
+            <nvpair id="wg-meta_attributes-resource-stickiness" name="resource-stickiness" value="1"/>
+          </meta_attributes>
+        </primitive>
+      </group>
+      <group id="g_toc">
+        <meta_attributes id="g_toc-meta_attributes">
+          <nvpair name="target-role" value="Started" id="g_toc-meta_attributes-target-role"/>
+        </meta_attributes>
+        <primitive id="vip_toc" class="ocf" provider="heartbeat" type="IPaddr2">
+          <instance_attributes id="vip_toc-instance_attributes">
+            <nvpair name="ip" value="10.159.101.4" id="vip_toc-instance_attributes-ip"/>
+            <nvpair name="cidr_netmask" value="24" id="vip_toc-instance_attributes-cidr_netmask"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" interval="10s" id="vip_toc-monitor-10s"/>
+          </operations>
+        </primitive>
+        <primitive id="toc" class="ocf" provider="heartbeat" type="q-docker-compose">
+          <instance_attributes id="toc-instance_attributes">
+            <nvpair name="param" id="toc-instance_attributes-param"/>
+            <nvpair name="dirpath" value="/data/local_ws/toc" id="toc-instance_attributes-dirpath"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" timeout="60s" interval="60s" id="toc-monitor-60s"/>
+          </operations>
+          <meta_attributes id="toc-meta_attributes">
+            <nvpair name="target-role" value="Started" id="toc-meta_attributes-target-role"/>
+            <nvpair id="toc-meta_attributes-is-managed" name="is-managed" value="true"/>
+          </meta_attributes>
+          <utilization id="toc-utilization">
+            <nvpair id="toc-utilization-memory" name="memory" value="4096"/>
+          </utilization>
+        </primitive>
+      </group>
+      <group id="g_test">
+        <meta_attributes id="g_test-meta_attributes">
+          <nvpair name="target-role" value="Started" id="g_test-meta_attributes-target-role"/>
+        </meta_attributes>
+        <primitive id="vip_test" class="ocf" provider="heartbeat" type="IPaddr2">
+          <instance_attributes id="vip_test-instance_attributes">
+            <nvpair name="ip" value="10.159.101.5" id="vip_test-instance_attributes-ip"/>
+            <nvpair name="cidr_netmask" value="24" id="vip_test-instance_attributes-cidr_netmask"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" interval="10s" id="vip_test-monitor-10s"/>
+          </operations>
+        </primitive>
+        <primitive id="test" class="ocf" provider="heartbeat" type="q-docker-compose">
+          <instance_attributes id="test-instance_attributes">
+            <nvpair name="param" id="test-instance_attributes-param"/>
+            <nvpair name="dirpath" value="/data/local_ws/test" id="test-instance_attributes-dirpath"/>
+          </instance_attributes>
+          <operations>
+            <op name="monitor" timeout="60s" interval="60s" id="test-monitor-60s"/>
+          </operations>
+          <meta_attributes id="test-meta_attributes">
+            <nvpair name="target-role" value="Started" id="test-meta_attributes-target-role"/>
+          </meta_attributes>
+        </primitive>
+      </group>
+    </resources>
+    <constraints/>
+  </configuration>
+</cib>
