@@ -67,3 +67,14 @@ gst-launch-1.0 -v \
 nvv4l2camerasrc device=/dev/video${INPUT_NUMBER} ! \
 nvvidconv ! 'video/x-raw(memory:NVMM), width=1920, height=1536' ! \
 nvvidconv ! nvv4l2h264enc bitrate=100000000 ! h264parse ! mpegtsmux ! filesink location=~/video${INPUT_NUMBER}.mp4
+
+
+gst-launch-1.0 nvarguscamerasrc sensor_id=$1 ! 'video/x-raw(memory:NVMM),width=1920,height=1200,
+format=NV12,framerate=30/1' ! nvvidconv ! fpsdisplaysink  sync=false video-sink=xvimagesink
+
+gst-launch-1.0 compositor name=comp sink_1::xpos=1920 ! \
+  nvvidconv ! nvv4l2h264enc bitrate=400000000 ! h264parse ! mpegtsmux ! filesink location=~/video_0_1.mp4 \
+  nvarguscamerasrc sensor_id=0 ! 'video/x-raw(memory:NVMM),width=1920,height=1200, format=NV12,framerate=30/1' ! nvvidconv ! \
+  queue2 ! comp. \
+  nvarguscamerasrc sensor_id=1 ! 'video/x-raw(memory:NVMM),width=1920,height=1200, format=NV12,framerate=30/1' ! nvvidconv ! \
+  queue2 ! comp.
