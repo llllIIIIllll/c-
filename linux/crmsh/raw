@@ -1,0 +1,38 @@
+node 11: WL-qml-srv-01
+node 12: WL-qml-srv-02
+node 13: WL-qml-srv-03
+primitive nexus anything \
+	params param binfile="docker-compose -f /data/local_ws/nexus/docker-compose.yml up" \
+	op monitor interval=10s \
+	meta target-role=Started
+primitive vip_2 IPaddr2 \
+	params ip=10.159.101.2 cidr_netmask=24 \
+	op monitor interval=10s
+primitive vip_3 IPaddr2 \
+	params ip=10.159.101.3 cidr_netmask=24 \
+	op monitor interval=10s \
+	meta target-role=Started
+primitive vip_4 IPaddr2 \
+	params ip=10.159.101.4 cidr_netmask=24 \
+	op monitor interval=10s
+primitive wg anything \
+	params param binfile="docker-compose -f /data/local_ws/wg_server/docker-compose.yml up" \
+	params param stop_timeout=1 \
+	op monitor interval=10s \
+	op_params stonith-enabled=false \
+	meta resource-stickiness=1 target-role=Started \
+	utilization memory=2048 cpu=1
+group g_def vip_4 nexus \
+	meta target-role=Started
+group g_wg vip_3 wg \
+	meta target-role=Started
+location cli-prefer-vip_k8s_ingress vip_k8s_ingress role=Started inf: WL-qml-srv-02
+property cib-bootstrap-options: \
+	have-watchdog=false \
+	dc-version=2.0.3-4b1f869f0f \
+	cluster-infrastructure=corosync \
+	cluster-name=qml-gateway \
+	no-quorum-policy=stop \
+	stonith-enabled=false \
+	last-lrm-refresh=1690958237 \
+	symmetric-cluster=true

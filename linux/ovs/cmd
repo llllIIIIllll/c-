@@ -1,0 +1,22 @@
+
+# add vwan0 & veth-vwan0
+sudo ip link add vwan0 type veth peer name veth-vwan0
+sudo ip address add 192.168.32.161/23 dev vwan0
+
+# add veth-wan0 to ovs0
+sudo ovs-vsctl add-port ovs0 veth-vwan0 tag=32
+
+sudo ip link set veth-vwan0 up
+sudo ip link set vwan0 up
+
+# add new vlan 32 
+sudo ovs-vsctl del-port lan0.0;sudo ovs-vsctl add-port ovs0 lan0.0 tag=1 trunks=1,2,10,32 vlan_mode=native-untagged
+
+# enable ping
+sudo iptables -t filter -A INPUT -i vwan0 -p icmp -j ACCEPT
+sudo iptables -t filter -A INPUT -i vwan0 -p tcp --dport 22 -j ACCEPT
+
+# add nat
+sudo iptables -t nat -A POSTROUTING -o vwan0 -j MASQUERADE
+sudo iptables -t filter -A FORWARD -i vwan0 -o lan0 -j ACCEPT
+
