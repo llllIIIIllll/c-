@@ -1,0 +1,15 @@
+
+sudo apt-get install debian-keyring debian-archive-keyring
+
+sudo apt-key update
+
+sudo apt-get update
+
+
+mkdir -p /data/qomolo_data/var/lib/dpkg  
+touch /data/qomolo_data/var/lib/dpkg/status  
+mkdir -p /data/qomolo_data/var/lib/dpkg/updates/  
+mkdir -p /data/qomolo_data/var/lib/dpkg/info/  
+touch /data/qomolo_data/var/lib/dpkg/info/format-new  
+
+sudo dpkg --force-all --instdir=/data/qomolo_data --admindir=/data/qomolo_data/var/lib/dpkg --root=/data/qomolo_data 

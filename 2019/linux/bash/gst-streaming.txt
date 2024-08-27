@@ -82,5 +82,30 @@ gst-launch-1.0 compositor name=comp sink_1::xpos=1920 ! \
 
 gst-launch-1.0 videotestsrc ! videoconvert ! autovideosink
 
-gst-launch-1.0 -e -v nvv4l2camerasrc device=/dev/video0 ! nvvidconv ! 'video/x-raw(memory:NVMM), width=1920, height=1536' !  nvvidconv ! fpsdisplaysink  sync=false video-sink=fakesink
+gst-launch-1.0 -e -v nvv4l2camerasrc device=/dev/video0 ! nvvidconv ! 'video/x-raw(memory:NVMM), width=1920, height=1080' !  nvvidconv ! fpsdisplaysink  sync=false video-sink=fakesink
 
+gst-launch-1.0 -e -v nvv4l2camerasrc device=/dev/video1 ! nvvidconv ! 'video/x-raw(memory:NVMM), width=1920, height=1080' !  nvvidconv !  fpsdisplaysink  sync=false video-sink=fakesink
+
+
+
+
+
+  nvbuf-memory-type   : Type of NvBufSurface Memory to be allocated for output buffers
+                        flags: readable, writable, changeable only in NULL or READY state
+                        Enum "GstNvBufMemoryType" Default: 0, "nvbuf-mem-default"
+                           (0): nvbuf-mem-default - Default memory allocated, specific to particular platform
+                           (1): nvbuf-mem-cuda-pinned - Allocate Pinned/Host cuda memory
+                           (2): nvbuf-mem-cuda-device - Allocate Device cuda memory
+                           (3): nvbuf-mem-cuda-unified - Allocate Unified cuda memory
+                           (4): nvbuf-mem-surface-array - Allocate Surface Array memory, applicable for Jetson
+
+  interpolation-method: Set interpolation methods
+                        flags: readable, writable, controllable
+                        Enum "GstNvInterpolationMethod" Default: 6, "Default"
+                           (0): Nearest          - Nearest
+                           (1): Bilinear         - Bilinear
+                           (2): Algo-1           - GPU - Cubic, VIC - 5 Tap
+                           (3): Algo-2           - GPU - Super, VIC - 10 Tap
+                           (4): Algo-3           - GPU - LanzoS, VIC - Smart
+                           (5): Algo-4           - GPU - Ignored, VIC - Nicest
+                           (6): Default          - GPU - Nearest, VIC - Nearest
